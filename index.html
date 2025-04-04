@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Proyecto Principal</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Proyecto Profesional</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Bienvenido a la Rama Principal</h1>
-    <p>Este es un proyecto base con HTML, CSS y JS.</p>
-    <button id="miBoton">Haz clic</button>
+    <h1>Bienvenido</h1>
+    <p>Deja tu comentario sobre la página.</p>
+
+    <form id="comentarioForm">
+      <input type="text" id="nombre" placeholder="Tu nombre" required>
+      <textarea id="comentario" placeholder="Escribe tu comentario..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div id="comentariosContainer">
+      <h2>Comentarios:</h2>
+      <ul id="listaComentarios"></ul>
+    </div>
   </div>
 
   <script src="script.js"></script>
