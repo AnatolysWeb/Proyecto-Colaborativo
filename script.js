@@ -1,25 +1,36 @@
-document.getElementById('comentarioForm').addEventListener('submit', async function(e) {
+document.getElementById("comentarioForm").addEventListener("submit", function(e) {
   e.preventDefault();
+  
+  const nombre = document.getElementById("nombre").value;
+  const comentario = document.getElementById("comentario").value;
 
-  const nombre = document.getElementById('nombre').value.trim();
-  const comentario = document.getElementById('comentario').value.trim();
-
-  if (nombre && comentario) {
-    const data = { nombre, comentario };
-
-    // Enviar al servidor
-    await fetch('/guardar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    // Mostrar en pantalla (opcional)
-    const lista = document.getElementById('listaComentarios');
-    const nuevoComentario = document.createElement('li');
-    nuevoComentario.innerHTML = `<strong>${nombre}:</strong> ${comentario}`;
-    lista.appendChild(nuevoComentario);
-
-    document.getElementById('comentarioForm').reset();
-  }
+  fetch("/guardar_comentario", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ nombre, comentario })
+  })
+  .then(res => res.text())
+  .then(() => {
+    document.getElementById("comentarioForm").reset();
+    cargarComentarios();
+  });
 });
+
+function cargarComentarios() {
+  fetch("/obtener_comentarios")
+    .then(res => res.json())
+    .then(data => {
+      const lista = document.getElementById("listaComentarios");
+      lista.innerHTML = "";
+      data.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.nombre}: ${item.comentario}`;
+        lista.appendChild(li);
+      });
+    });
+}
+
+// Cargar los comentarios al inicio
+cargarComentarios();
